@@ -1,5 +1,9 @@
 from ultralytics import YOLO
 import streamlit as st
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+import numpy as np
+from PIL import Image
+import av
 import cv2
 from pytube import YouTube
 
@@ -105,9 +109,9 @@ def play_youtube_video(conf, model):
             st.sidebar.error("Error loading video: " + str(e))
 
 
-def play_webcam(conf, model):
+def play_rtsp_stream(conf, model):
     """
-    Plays a webcam stream. Detects Objects in real-time using the YOLOv8 object detection model.
+    Plays an rtsp stream. Detects Objects in real-time using the YOLOv8 object detection model.
 
     Parameters:
         conf: Confidence of YOLOv8 model.
@@ -119,11 +123,11 @@ def play_webcam(conf, model):
     Raises:
         None
     """
-    source_webcam = settings.WEBCAM_PATH
+    source_rtsp = st.sidebar.text_input("rtsp stream url")
     is_display_tracker, tracker = display_tracker_options()
     if st.sidebar.button('Detect Objects'):
         try:
-            vid_cap = cv2.VideoCapture(source_webcam)
+            vid_cap = cv2.VideoCapture(source_rtsp)
             st_frame = st.empty()
             while (vid_cap.isOpened()):
                 success, image = vid_cap.read()
@@ -133,13 +137,63 @@ def play_webcam(conf, model):
                                              st_frame,
                                              image,
                                              is_display_tracker,
-                                             tracker,
+                                             tracker
                                              )
                 else:
                     vid_cap.release()
                     break
         except Exception as e:
-            st.sidebar.error("Error loading video: " + str(e))
+            st.sidebar.error("Error loading RTSP stream: " + str(e))
+
+
+
+
+def play_webcam(conf, model):
+    """
+    Plays a webcam stream. Detects Objects in real-time using the YOLO object detection model.
+
+    Returns:
+        None
+
+    Raises:
+        None
+    """
+    st.sidebar.title("Webcam Object Detection")
+
+    webrtc_streamer(
+        key="example",
+        video_processor_factory=lambda: MyVideoTransformer(conf, model),
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        media_stream_constraints={"video": True, "audio": False},
+    )
+
+class MyVideoTransformer(VideoTransformerBase):
+    def __init__(self, conf, model):
+        self.conf = conf
+        self.model = model
+
+    def recv(self, frame):
+        image = frame.to_ndarray(format="bgr24")
+        processed_image = self._display_detected_frames(image)
+        st.image(processed_image, caption='Detected Video', channels="BGR", use_column_width=True)
+
+    def _display_detected_frames(self, image):
+        orig_h, orig_w = image.shape[0:2]
+        width = 720  # Set the desired width for processing
+
+        # cv2.resize used in a forked thread may cause memory leaks
+        input = np.asarray(Image.fromarray(image).resize((width, int(width * orig_h / orig_w))))
+
+        if self.model is not None:
+            # Perform object detection using YOLO model
+            res = self.model.predict(input, conf=self.conf)
+
+            # Plot the detected objects on the video frame
+            res_plotted = res[0].plot()
+            return res_plotted
+
+        return input
+
 
 
 def play_stored_video(conf, model):
