@@ -161,10 +161,10 @@ def play_webcam(conf, model):
     st.sidebar.title("Webcam Object Detection")
 
     webrtc_streamer(
-        mode = WebRtcMode.SENDRECV,
+      # mode = WebRtcMode.SENDRECV,
         key="example",
 	video_frame_callback=callback,
-        video_processor_factory=lambda : utils.MyVideoTransformer(conf,model),
+      #  video_processor_factory=lambda : utils.MyVideoTransformer(conf,model),
       # video_processor_factory=lambda: MyVideoTransformer(conf, model),
 	rtc_configuration={  # Add this line
         "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
