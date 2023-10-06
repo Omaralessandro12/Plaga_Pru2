@@ -163,69 +163,18 @@ def play_webcam(conf, model):
     webrtc_streamer(
         mode = WebRtcMode.SENDRECV,
         key="example",
+	video_frame_callback=callback,
         video_processor_factory=lambda : utils.MyVideoTransformer(conf,model),
       # video_processor_factory=lambda: MyVideoTransformer(conf, model),
-        rtc_configuration={"iceServers": get_ice_servers()},
+	rtc_configuration={  # Add this line
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+      # rtc_configuration={"iceServers": get_ice_servers()},
       # rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
         media_stream_constraints={"video": True, "audio": False},
         async_processing =True
     )
-     turn.py
-
-    import logging
-
-    import os
-
-    import streamlit as st
-
-    from twilio.base.exceptions import TwilioRestException
-
-    from twilio.rest import Client
-
-    logger = logging.getLogger(__name__)
-
-    os.environ["TWILIO_ACCOUNT_SID"] = "Twilio Account SID"
-
-    os.environ["TWILIO_AUTH_TOKEN"] = "Twilio Auth"
-
-    def get_ice_servers():
-	
-	# Ref: https://www.twilio.com/docs/stun-turn/api
-
-    try:
-
-    account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-
-    auth_token = os.environ["TWILIO_AUTH_TOKEN"]
-
-    except KeyError:
-
-    logger.warning(
-
-"Twilio credentials are not set. Fallback to a free STUN server from Google." # noqa: E501
-
-    )
-
-    return [{"urls": ["stun:stun.l.google.com:19302"]}]
-
-    client = Client(account_sid, auth_token)
-
-    try:
-
-    token = client.tokens.create()
-
-    except TwilioRestException as e:
-
-    st.warning(
-
-    f"Error occurred while accessing Twilio API. Fallback to a free STUN server from Google. ({e})" # noqa: E501
-
-    )
-
-    return [{"urls": ["stun:stun.l.google.com:19302"]}]
-
-    return token.ice_servers
-
+   
+   
 
 class MyVideoTransformer(VideoTransformerBase):
     def __init__(self, conf, model):
