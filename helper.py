@@ -161,10 +161,14 @@ def play_webcam(conf, model):
     st.sidebar.title("Webcam Object Detection")
 
     webrtc_streamer(
+        mode = WebRtcMode.SENDRECV,
         key="example",
-        video_processor_factory=lambda: MyVideoTransformer(conf, model),
-        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        video_processor_factory=lambda : utils.MyVideoTransformer(conf,model),
+      # video_processor_factory=lambda: MyVideoTransformer(conf, model),
+        rtc_configuration={"iceServers": get_ice_servers()},
+      # rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
         media_stream_constraints={"video": True, "audio": False},
+        async_processing =True
     )
 
 class MyVideoTransformer(VideoTransformerBase):
