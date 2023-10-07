@@ -160,17 +160,12 @@ def play_webcam(conf, model):
     """
     st.sidebar.title("Webcam Object Detection")
 
-  ctx =  webrtc_streamer(
+    webrtc_streamer(
         key="example",
-        video_transformer_factory=VideoTransformer,
-        client_settings=WEBRTC_CLIENT_SETTINGS,)
-      # rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
-      # media_stream_constraints={"video": True, "audio": False},
+        video_transformer_factory=lambda: MyVideoTransformer(conf, model),
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        media_stream_constraints={"video": True, "audio": False},
     )
-        if ctx.video_transformer:
-        ctx.video_transformer.model = model
-        ctx.video_transformer.rgb_colors = rgb_colors
-        ctx.video_transformer.target_class_ids = target_class_ids
 
 class MyVideoTransformer(VideoTransformerBase):
     def __init__(self, conf, model):
