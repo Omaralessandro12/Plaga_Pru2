@@ -1,6 +1,6 @@
 from ultralytics import YOLO
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase , ClientSettings, WebRtcMode 
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 import numpy as np
 from PIL import Image
 import av
@@ -162,13 +162,11 @@ def play_webcam(conf, model):
 
     webrtc_streamer(
         key="example",
-    video_frame_callback=callback,
-    rtc_configuration={  # Add this line
-        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
-    },
-    media_stream_constraints={"video": True, "audio": False}
+        video_processor_factory=lambda: MyVideoTransformer(conf, model),
+        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        media_stream_constraints={"video": True, "audio": False},
     )
-        
+
 class MyVideoTransformer(VideoTransformerBase):
     def __init__(self, conf, model):
         self.conf = conf
@@ -178,7 +176,6 @@ class MyVideoTransformer(VideoTransformerBase):
         image = frame.to_ndarray(format="bgr24")
         processed_image = self._display_detected_frames(image)
         st.image(processed_image, caption='Detected Video', channels="BGR", use_column_width=True)
-        return av.VideoFrame.from_ndarray(annotated_image, format="bgr24")
 
     def _display_detected_frames(self, image):
         orig_h, orig_w = image.shape[0:2]
