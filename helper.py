@@ -166,7 +166,7 @@ def play_webcam(conf, model):
         key="example",
         mode = WebRtcMode.SENDRECV,
         rtc_configuration={"iceServers": get_ice_servers()},
-        video_frame_callback=video_frame_callback,
+        video_frame_callback=callback,
         # video_processor_factory=lambda : utils.MyVideoTransformer(conf,model),        
         media_stream_constraints={"video": True, "audio": False},
         async_processing =True
