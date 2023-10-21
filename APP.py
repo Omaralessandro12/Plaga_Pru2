@@ -11,8 +11,8 @@ import helper
 
 # Setting page layout
 st.set_page_config(
-    page_title="Object Detection using YOLOv8",
-    page_icon="🤖",
+    page_title="Deteccion de Plagas en la agricultura Mexicana",
+    # page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
