@@ -1,4 +1,4 @@
-#from ultralytics import YOLO
+from ultralytics import YOLO
 import streamlit as st
 from streamlit_webrtc import WebRtcMode, webrtc_streamer, VideoTransformerBase
 from turn import get_ice_servers
