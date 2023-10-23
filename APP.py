@@ -18,7 +18,7 @@ st.set_page_config(
 )
 
 # Main page heading
-st.title("Deteccion de Plagas en la agricultura Mexicana")
+# st.title("Deteccion de Plagas en la agricultura Mexicana")
 # st.caption('Updload a photo with this :blue[hand signals]: :+1:, :hand:, :i_love_you_hand_sign:, and :spock-hand:.')
 # st.caption('Then click the :blue[Detect Objects] button and check the result.')
 
