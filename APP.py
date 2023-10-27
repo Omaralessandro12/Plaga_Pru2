@@ -61,14 +61,14 @@ if source_radio == settings.IMAGE:
         try:
             if source_img:
                 uploaded_image = PIL.Image.open(source_img)
-                st.image(source_img, caption="Uploaded Image",
+                st.image(source_img, caption="Imagen Cargada",
                          use_column_width=True)
         except Exception as ex:
-            st.error("Error occurred while opening the image.")
+            st.error("Se produjo un error al abrir la imagen.")
             st.error(ex)
 
     with col2:        
-            if st.sidebar.button('Detect Objects'):
+            if st.sidebar.button('Detectar Objeto'):
                 res = model.predict(uploaded_image,
                                     conf=confidence
                                     )
