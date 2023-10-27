@@ -23,7 +23,7 @@ st.set_page_config(
 # st.caption('Then click the :blue[Detect Objects] button and check the result.')
 
 # Sidebar
-st.sidebar.header("ML Model Config")
+st.sidebar.header("Configuración del modelo de aprendizaje automático")
 
 # Model Options
 model_type = st.sidebar.radio(
