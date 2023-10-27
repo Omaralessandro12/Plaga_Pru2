@@ -30,7 +30,7 @@ model_type = st.sidebar.radio(
     "Seleccionar tarea", ['Detection', 'Segmentation'])
 
 confidence = float(st.sidebar.slider(
-    "Select Model Confidence", 25, 100, 40)) / 100
+    "Seleccione la confianza del modelo", 25, 100, 40)) / 100
 
 # Selecting Detection Or Segmentation
 if model_type == 'Detection':
