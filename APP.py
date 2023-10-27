@@ -27,13 +27,13 @@ st.sidebar.header("Configuración del modelo de aprendizaje automático")
 
 # Model Options
 model_type = st.sidebar.radio(
-    "Seleccionar tarea", ['Detection' ])
+    "Seleccionar tarea", ['Deteccion' ])
 
 confidence = float(st.sidebar.slider(
     "Seleccione la confianza del modelo", 25, 100, 40)) / 100
 
 # Selecting Detection Or Segmentation
-if model_type == 'Detection':
+if model_type == 'Deteccion':
     model_path = Path(settings.DETECTION_MODEL)
 #elif model_type == 'Segmentation':
 #    model_path = Path(settings.SEGMENTATION_MODEL)
