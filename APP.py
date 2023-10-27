@@ -45,9 +45,9 @@ except Exception as ex:
     st.error(f"Unable to load model. Check the specified path: {model_path}")
     st.error(ex)
 
-st.sidebar.header("Image/Video Config")
+st.sidebar.header("Imagen/Config")
 source_radio = st.sidebar.radio(
-    "Select Source", settings.SOURCES_LIST)
+    "Seleccione Fuente", settings.SOURCES_LIST)
 
 source_img = None
 # If image is selected
