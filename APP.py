@@ -77,7 +77,7 @@ if source_radio == settings.IMAGE:
                 st.image(res_plotted, caption='Detected Image',
                          use_column_width=True)
                 try:
-                    with st.expander("Detection Results"):
+                    with st.expander("Resultados de la detección"):
                         for box in boxes:
                             st.write(box.data)
                 except Exception as ex:
