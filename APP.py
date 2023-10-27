@@ -27,7 +27,7 @@ st.sidebar.header("Configuración del modelo de aprendizaje automático")
 
 # Model Options
 model_type = st.sidebar.radio(
-    "Seleccionar tarea", ['Detection', 'Segmentation'])
+    "Seleccionar tarea", ['Detection' ])
 
 confidence = float(st.sidebar.slider(
     "Seleccione la confianza del modelo", 25, 100, 40)) / 100
