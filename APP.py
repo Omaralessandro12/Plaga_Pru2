@@ -34,7 +34,7 @@ confidence = float(st.sidebar.slider(
     "Seleccione la confianza del modelo", 25, 100, 40)) / 100
 
 # Selecting Detection Or Segmentation
-if model_type == 'YoloV8':
+if model_type == 'Deteccion':
     model_path = Path(settings.DETECTION_MODEL)
 #elif model_type == 'Segmentation':
 #    model_path = Path(settings.SEGMENTATION_MODEL)
