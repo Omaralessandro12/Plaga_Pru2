@@ -26,14 +26,9 @@ st.set_page_config(
 st.sidebar.header("Configuración del modelo de aprendizaje automático")
 
 # Model Options
-#model_type = st.sidebar.radio(
-#    "Seleccionar tarea", ['Deteccion' ])
+ model_type = st.sidebar.radio(
+     "Seleccionar tarea", ['Deteccion' ])
 
-genres = st.sidebar.multiselect(
-    "Seleccione los modelos de Detección",
-    ["YoloV8", "ResNet50"],
-    default=None,
-)
 
 confidence = float(st.sidebar.slider(
     "Seleccione la confianza del modelo", 25, 100, 40)) / 100
