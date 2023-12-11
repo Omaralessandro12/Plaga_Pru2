@@ -26,7 +26,7 @@ st.set_page_config(
 st.sidebar.header("Configuración del modelo de aprendizaje automático")
 
 # Model Options
-  model_type = st.sidebar.radio(
+model_type = st.sidebar.radio(
      "Seleccionar tarea", ['Deteccion' ])
 
 
