@@ -26,16 +26,30 @@ st.set_page_config(
 st.sidebar.header("Configuración del modelo de aprendizaje automático")
 
 # Model Options
-model_type = st.sidebar.radio(
-     "Seleccionar tarea", ['Deteccion' ])
+model_types_available = ['Deteccion', 'OtraTarea', 'OtraTarea2']  # Agrega más tareas según sea necesario
+model_type = st.sidebar.multiselect("Seleccionar tarea", model_types_available, default=['Deteccion'])
+
+
+
+#model_type = st.sidebar.radio(
+#    "Seleccionar tarea", ['Deteccion' ])
 
 
 confidence = float(st.sidebar.slider(
     "Seleccione la confianza del modelo", 25, 100, 40)) / 100
 
-# Selecting Detection Or Segmentation
-if model_type == 'Deteccion':
+
+if not model_type:
+    model_type = ['Deteccion']
+
+selected_task = model_type[0]
+
+if selected_task == 'Deteccion':
     model_path = Path(settings.DETECTION_MODEL)
+
+# Selecting Detection Or Segmentation
+#if model_type == 'Deteccion':
+#   model_path = Path(settings.DETECTION_MODEL)
 #elif model_type == 'Segmentation':
 #    model_path = Path(settings.SEGMENTATION_MODEL)
 
