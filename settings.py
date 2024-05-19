@@ -1,33 +1,26 @@
 from pathlib import Path
 import sys
 
-# Get the absolute path of the current file
+# Obtiene la ruta absoluta del archivo actual
 file_path = Path(__file__).resolve()
 
-# Get the parent directory of the current file
+# Obtiene el directorio principal del archivo actual
 root_path = file_path.parent
 
-# Add the root path to the sys.path list if it is not already there
+# Agregar la ruta raíz a la lista sys.path si aún no está allí
 if root_path not in sys.path:
     sys.path.append(str(root_path))
 
-# Get the relative path of the root directory with respect to the current working directory
+# Obtener la ruta relativa del directorio raíz con respecto al directorio de trabajo actual
 ROOT = root_path.relative_to(Path.cwd())
 
 # Sources
 IMAGE = 'Imagen'
-#VIDEO = 'Video'
-#WEBCAM = 'Camara'
-#YOUTUBE = 'YouTube'
 
-SOURCES_LIST = [IMAGE]
 
+LISTA_FUENTES = [IMAGE ]
 
 # ML Model config
 MODEL_DIR = ROOT / 'weights'
-DETECTION_MODEL = MODEL_DIR / 'best.pt'
+DETECCIÓN_MODEL = MODEL_DIR / 'best.pt'
 SEGMENTATION_MODEL = MODEL_DIR / 'yolov8n-seg.pt'
-
-
-# Establecer la fuente predeterminada como 'Imagen'
-source_radio = 'Imagen'
