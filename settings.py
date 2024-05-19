@@ -15,7 +15,7 @@ if root_path not in sys.path:
 ROOT = root_path.relative_to(Path.cwd())
 
 # Sources
-IMAGE = 'Imagen'
+#IMAGE = 'Imagen'
 #VIDEO = 'Video'
 #WEBCAM = 'Camara'
 #YOUTUBE = 'YouTube'
