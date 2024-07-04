@@ -1,9 +1,11 @@
 git+https://github.com/fullmakeralchemist/pytube/
 git+https://github.com/gatagat/lap@new-packaging
 numpy==1.21.0
-streamlit==1.2.0
+streamlit==1.27.1
 streamlit-webrtc==0.35.1
 torch==2.0.1
-ultralytics==8.0.150
+ultralytics==8.0.190
 pafy==0.5.5
 twilio~=8.9.1
+
+
